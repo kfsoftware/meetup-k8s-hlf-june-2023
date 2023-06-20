@@ -430,6 +430,14 @@ kubectl hlf identity create --name org2-admin --namespace default \
 
 ```
 
+### Check identities
+
+Check that the identities are created, the state must be `RUNNING`:
+
+```bash
+kubectl get fabricidentities.hlf.kungfusoftware.es
+```
+
 ### Create main channel
 
 ```bash
@@ -531,6 +539,12 @@ EOF
 
 ```
 
+Check that the channel is created:
+
+```bash
+kubectl get fabricmainchannels.hlf.kungfusoftware.es
+```
+
 ## Org1MSP Join peer to the channel
 
 ```bash
@@ -606,6 +620,12 @@ ${ORDERER0_TLS_CERT}
       namespace: default
 EOF
 
+```
+
+Check that the peers are joined to the channel:
+
+```bash
+kubectl get fabricfollowerchannels.hlf.kungfusoftware.es
 ```
 
 ## Install a chaincode
@@ -791,6 +811,19 @@ kubectl hlf chaincode query --config=resources/network.yaml \
     --fcn=GetAllAssets
 ```
 
+
+## Launch the explorer
+
+```bash
+export API_HOST=operator-api.localho.st
+export HLF_SECRET_NAME="nc-networkconfig"
+export HLF_MSPID="Org1MSP"
+export HLF_SECRET_KEY="config.yaml" # e.g. networkConfig.yaml
+export HLF_USER="org1-admin-default"
+kubectl hlf operatorapi update --name=operator-api --namespace=default --version="v0.0.17-beta9" --hosts=$API_HOST --ingress-class-name=istio \
+          --hlf-mspid="${HLF_MSPID}" --hlf-secret="${HLF_SECRET_NAME}" --hlf-secret-key="${HLF_SECRET_KEY}" \
+          --hlf-user="${HLF_USER}"
+```
 
 ## Launch the API
 
