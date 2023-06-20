@@ -153,7 +153,7 @@ EOF
 
 ## Deploy a `Peer` organization
 
-### Environment Variables for AMD (Default)
+### Environment Variables
 
 ```bash
 export PEER_IMAGE=hyperledger/fabric-peer
@@ -164,20 +164,6 @@ export ORDERER_VERSION=2.5.3
 
 export CA_IMAGE=hyperledger/fabric-ca
 export CA_VERSION=1.5.6
-```
-
-### Environment Variables for ARM (Mac M1)
-
-```bash
-export PEER_IMAGE=hyperledger/fabric-peer
-export PEER_VERSION=2.5.3
-
-export ORDERER_IMAGE=kfsoftware/fabric-orderer
-export ORDERER_VERSION=2.5.3
-
-export CA_IMAGE=hyperledger/fabric-ca
-export CA_VERSION=1.5.6
-
 ```
 
 ### Configure Internal DNS
@@ -820,7 +806,7 @@ export HLF_SECRET_NAME="nc-networkconfig"
 export HLF_MSPID="Org1MSP"
 export HLF_SECRET_KEY="config.yaml" # e.g. networkConfig.yaml
 export HLF_USER="org1-admin-default"
-kubectl hlf operatorapi update --name=operator-api --namespace=default --version="v0.0.17-beta9" --hosts=$API_HOST --ingress-class-name=istio \
+kubectl hlf operatorapi create --name=operator-api --namespace=default --version="v0.0.17-beta9" --hosts=$API_HOST --ingress-class-name=istio \
           --hlf-mspid="${HLF_MSPID}" --hlf-secret="${HLF_SECRET_NAME}" --hlf-secret-key="${HLF_SECRET_KEY}" \
           --hlf-user="${HLF_USER}"
 ```
